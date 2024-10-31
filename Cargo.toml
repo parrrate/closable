@@ -2,6 +2,12 @@
 name = "closable"
 version = "0.1.0"
 edition = "2021"
+publish = true
+description = "Closing streams with or without processing remaining items"
+documentation = "https://docs.rs/closable"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/parrrate/closable"
+rust-version = "1.79"
 
 [dependencies]
 futures-core = { version = "0.3.31", default-features = false }
