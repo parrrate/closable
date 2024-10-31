@@ -1,0 +1,8 @@
+[package]
+name = "closable"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+futures-core = { version = "0.3.31", default-features = false }
+pin-project-lite = { version = "0.2.14", default-features = false }
