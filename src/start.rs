@@ -59,6 +59,12 @@ impl<S: TryStream> Stream for Closable<S> {
     }
 }
 
+impl<S: TryStream> StartClose for Closable<S> {
+    fn start_close(self: Pin<&mut Self>) {
+        self.project().stream.set(None);
+    }
+}
+
 pub struct Close<'a, S: ?Sized> {
     stream: &'a mut S,
 }
