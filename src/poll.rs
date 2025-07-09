@@ -21,7 +21,7 @@ where
     }
 }
 
-impl<'a, S: Unpin + PollClose<Error = Self::Error>> PollClose for &'a mut S
+impl<S: Unpin + PollClose<Error = Self::Error>> PollClose for &mut S
 where
     Self: TryStream,
 {
@@ -61,7 +61,7 @@ pub struct Close<'a, S: ?Sized> {
     stream: &'a mut S,
 }
 
-impl<'a, S: ?Sized + Unpin + PollClose> Future for Close<'a, S> {
+impl<S: ?Sized + Unpin + PollClose> Future for Close<'_, S> {
     type Output = Result<(), S::Error>;
 
     fn poll(self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output> {

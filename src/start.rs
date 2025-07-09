@@ -27,7 +27,7 @@ impl<P: Unpin + DerefMut<Target: StartClose>> StartClose for Pin<P> {
     }
 }
 
-impl<'a, S: Unpin + StartClose> StartClose for &'a mut S {
+impl<S: Unpin + StartClose> StartClose for &mut S {
     fn start_close(self: Pin<&mut Self>) {
         S::start_close(Pin::new(self.get_mut()))
     }
@@ -69,7 +69,7 @@ pub struct Close<'a, S: ?Sized> {
     stream: &'a mut S,
 }
 
-impl<'a, S: ?Sized + Unpin + StartClose + TryStream> Future for Close<'a, S> {
+impl<S: ?Sized + Unpin + StartClose + TryStream> Future for Close<'_, S> {
     type Output = Result<(), S::Error>;
 
     fn poll(mut self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output> {
